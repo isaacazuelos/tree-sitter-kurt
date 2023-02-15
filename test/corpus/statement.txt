@@ -1,0 +1,119 @@
+==========
+empty-file
+==========
+
+---
+
+(source_file)
+
+======================
+single-empty-statement
+======================
+
+;
+
+---
+
+(source_file
+    (empty_statement))
+
+================
+empty-statements
+================
+
+;;;
+
+---
+
+(source_file
+    (empty_statement)
+    (empty_statement))
+
+===================
+multiple-statements
+===================
+
+foo;
+bar;
+baz;
+
+---
+
+(source_file
+    (identifier)
+    (identifier)
+    (identifier))
+
+
+=====================
+no-trailing-semicolon
+=====================
+
+foo;
+foo
+
+---
+
+(source_file
+    (identifier)
+    (identifier))
+
+==========
+if-no-else
+==========
+
+if true { foo };
+
+---
+
+(source_file
+    (if_no_else
+        (bool_literal)
+        (block (identifier))))
+
+=============
+import-simple
+=============
+
+import Foo;
+
+---
+
+(source_file
+    (import
+        (module_path (identifier))))
+
+================
+import-with-path
+================
+
+import Foo.Bar.Baz;
+
+---
+
+(source_file
+    (import
+        (module_path
+        (identifier)
+        (identifier)
+        (identifier))))
+
+
+=======================
+import-with-symbol-list
+=======================
+
+import Foo.Bar.Baz { a, b, c, };
+
+---
+
+(source_file
+    (import
+        (module_path
+            (identifier)
+            (identifier)
+            (identifier))
+        (symbol_list
+            (identifier)
+            (identifier)
+            (identifier))))

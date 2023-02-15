@@ -1,0 +1,32 @@
+==========
+identifier
+==========
+
+foo;
+
+---
+
+(source_file
+  (identifier))
+
+===================
+non-ascii-xid_start
+===================
+
+ε;
+
+---
+
+(source_file
+  (identifier))
+
+=========
+non-ascii
+=========
+
+κινέζικα;
+
+---
+
+(source_file
+  (identifier))

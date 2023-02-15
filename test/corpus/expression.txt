@@ -1,0 +1,39 @@
+========
+grouping
+========
+
+(1)
+
+---
+
+(source_file
+    (int_literal))
+
+=======
+if-else
+=======
+
+if true { foo } else { bar }
+
+---
+
+(source_file
+    (if_else
+        (bool_literal)
+        (block (identifier))
+        (block (identifier))))
+
+=======================
+if-else-block-condition
+=======================
+
+// weird, but valid!
+if { true } { foo } else { bar }
+
+---
+
+(source_file
+    (if_else
+        (block (bool_literal))
+        (block (identifier))
+        (block (identifier))))

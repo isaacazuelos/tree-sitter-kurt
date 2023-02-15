@@ -1,0 +1,128 @@
+====
+zero
+====
+
+0
+
+---
+
+(source_file
+  (int_literal))
+
+======
+number
+======
+
+12313441
+
+---
+
+(source_file
+  (int_literal))
+
+=======================
+number-with-underscores
+=======================
+
+12_313_441
+
+---
+
+(source_file
+  (int_literal))
+
+===============================
+number-with-leading-underscores
+===============================
+
+_12_313_441
+
+---
+
+(source_file
+  (identifier))
+
+==========
+hex-number
+==========
+
+0xDEAD_BEEF
+
+---
+
+(source_file
+  (hex_literal))
+
+==========
+bin-number
+==========
+
+0b0010_1010
+
+---
+
+(source_file
+  (bin_literal))
+
+==============
+keyword-simple
+==============
+
+:keyword
+
+---
+
+(source_file
+  (keyword))
+
+===========================
+keyword-reserved-identifier
+===========================
+
+:let
+
+---
+
+(source_file
+  (keyword))
+
+
+============
+true-literal
+============
+
+true
+
+---
+
+(source_file (bool_literal))
+
+=============
+false-literal
+=============
+
+false
+
+---
+
+(source_file (bool_literal))
+
+=============
+unit-literal
+=============
+
+()
+
+---
+
+(source_file (unit_literal))
+
+===================
+unit-literal-spaces
+===================
+
+(    )
+
+---
+
+(source_file (unit_literal))

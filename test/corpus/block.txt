@@ -1,0 +1,54 @@
+===========
+empty-block
+===========
+
+{}
+
+---
+
+(source_file
+    (block))
+
+============
+simple-block
+============
+
+{ 1; 2; 3; }
+
+---
+
+(source_file
+    (block
+        (int_literal)
+        (int_literal)
+        (int_literal)))
+
+=================
+no-trailing-block
+=================
+
+{ 1; 2; 3 }
+
+---
+
+(source_file
+    (block
+        (int_literal)
+        (int_literal)
+        (int_literal)))
+
+============
+block-nested
+============
+
+{ 1; {}; 2; { 3 }; }
+
+---
+
+(source_file
+    (block
+        (int_literal)
+        (block)
+        (int_literal)
+        (block 
+            (int_literal))))

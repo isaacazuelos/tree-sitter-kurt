@@ -1,0 +1,12 @@
+===========
+let-binding
+===========
+
+let x = true;
+
+---
+
+(source_file
+    (binding
+        (identifier)
+        (bool_literal)))
