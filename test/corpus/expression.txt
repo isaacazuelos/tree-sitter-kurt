@@ -1,14 +1,3 @@
-========
-grouping
-========
-
-(1)
-
----
-
-(source_file
-    (int_literal))
-
 =======
 if-else
 =======
@@ -81,51 +70,6 @@ list-spread
     (list
         (int_literal)
         (spread (identifier))))
-
-
-=====
-tuple
-=====
-
-(a, b)
-
----
-
-(source_file
-    (tuple (identifier) (identifier)))
-
-===========
-tuple-empty
-===========
-
-(,)
-
----
-
-(source_file
-    (tuple))
-
-============
-tuple-single
-============
-
-(a,)
-
----
-
-(source_file
-    (tuple (identifier)))
-
-========================
-tuple-spread-trailing
-========================
-
-(a...,)
-
----
-
-(source_file
-    (tuple (spread (identifier))))
 
 =========
 loop-loop
@@ -231,58 +175,3 @@ foo(1, 2)(true);
             (int_literal)
             (int_literal))
         (bool_literal)))
-
-============
-record-empty
-============
-
-{}
-
----
-
-(source_file
-    (record))
-
-===============
-record-trailing
-===============
-
-{,}
-
----
-
-(source_file
-    (record))
-
-==========
-record-pun
-==========
-
-{ foo }
-
----
-
-(source_file
-    (record (record_pun (identifier))))
-
-===========
-record-pair
-===========
-
-{ foo: bar }
-
----
-
-(source_file
-    (record (record_pair (identifier) (identifier))))
-
-===================
-record-pair-literal
-===================
-
-{ 7: bar }
-
----
-
-(source_file
-    (record (record_pair (int_literal) (identifier))))

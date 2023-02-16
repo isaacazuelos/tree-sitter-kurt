@@ -1,0 +1,92 @@
+=============
+unit-literal
+=============
+
+()
+
+---
+
+(source_file (unit_literal))
+
+===================
+unit-literal-spaces
+===================
+
+( 
+    // there's a comment in here even!
+)
+
+---
+
+(source_file (unit_literal))
+
+
+========
+grouping
+========
+
+(1)
+
+---
+
+(source_file
+    (int_literal))
+
+============
+tuple-single
+============
+
+// kind of a nasty hack, but single-element-tuples are pretty rare.
+(a,)
+
+---
+
+(source_file
+    (tuple (identifier)))
+
+=====
+tuple
+=====
+
+(a, b)
+
+---
+
+(source_file
+    (tuple (identifier) (identifier)))
+
+===========
+tuple-empty
+===========
+
+(,)
+
+---
+
+(source_file
+    (tuple))
+
+=====================
+tuple-spread-trailing
+=====================
+
+(a...,)
+
+---
+
+(source_file
+    (tuple (spread (identifier))))
+
+========================
+tuple-spread-no-trailing
+========================
+
+// A little surprising maybe, but this is unambiguously not parentheses used 
+// for grouping, so it's a tuple!
+
+(a...)
+
+---
+
+(source_file
+    (tuple (spread (identifier))))

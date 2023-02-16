@@ -72,10 +72,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -179,10 +175,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -275,10 +267,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -363,10 +351,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "spread",
           "named": true
         },
         {
@@ -462,10 +446,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -550,10 +530,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "spread",
           "named": true
         },
         {
@@ -754,10 +730,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -860,10 +832,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -911,6 +879,10 @@
         },
         {
           "type": "record_pun",
+          "named": true
+        },
+        {
+          "type": "spread",
           "named": true
         }
       ]
@@ -986,10 +958,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "spread",
           "named": true
         },
         {
@@ -1077,10 +1045,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "spread",
           "named": true
         },
         {
@@ -1202,10 +1166,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -1293,10 +1253,6 @@
           "named": true
         },
         {
-          "type": "spread",
-          "named": true
-        },
-        {
           "type": "subscript",
           "named": true
         },
@@ -1381,10 +1337,6 @@
         },
         {
           "type": "record",
-          "named": true
-        },
-        {
-          "type": "spread",
           "named": true
         },
         {

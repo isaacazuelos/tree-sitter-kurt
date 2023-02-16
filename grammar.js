@@ -13,6 +13,22 @@ const LIST_SEP = ',';
 const sep_by_trailing1 = (rule, sep) => seq(rule, repeat(seq(sep, rule)), optional(sep));
 const sep_by_trailing = (rule, sep) => choice(sep, optional(sep_by_trailing1(rule, sep)));
 
+
+const PREC = {
+    // empty statements are to be avoided when possible.
+    empty_statement: -1,
+
+    // Create a preference on how to parse `()`, `(a)` and `(a,)`.
+    tuple: 0,
+    grouping: 1,
+    unit: 2,
+
+
+    // Create a preference for blocks over records.
+    block: 0,
+    record: 1,
+};
+
 module.exports = grammar({
     name: 'kurt',
 
@@ -27,9 +43,6 @@ module.exports = grammar({
     ],
 
     conflicts: $ => [
-        [$.block, $.empty_statement],
-        [$.record, $.block],
-        [$._record_item, $._expression_statement],
         [$.record_pun, $._expression_statement],
     ],
 
@@ -46,7 +59,7 @@ module.exports = grammar({
             $._expression_statement,
         ),
 
-        empty_statement: $ => STATEMENT_SEP,
+        empty_statement: $ => prec(PREC.empty_statement, STATEMENT_SEP),
 
         binding: $ => seq('let', $.identifier, '=', $._expression),
 
@@ -77,23 +90,24 @@ module.exports = grammar({
             $.loop_for,
             $.loop_loop,
             $.loop_while,
-            $.spread,
             $.subscript,
             $.tuple,
             $.unit_literal,
             $.early_exit,
             $.call,
 
+            $.record,
             $.block,
-            $.record
 
             // TODO: operators, fns, match
 
         ),
 
-        record: $ => seq('{', sep_by_trailing($._record_item, LIST_SEP), '}'),
+        record: $ => prec(PREC.record, seq('{', sep_by_trailing($._record_item, LIST_SEP), '}')),
+        block: $ => prec(PREC.block, seq('{', sep_by_trailing($._statement, STATEMENT_SEP), '}')),
 
         _record_item: $ => choice(
+            $.spread,
             $.record_pair,
             $.record_pun,
             $.record_computed_key,
@@ -114,11 +128,7 @@ module.exports = grammar({
 
         subscript: $ => seq($._expression, '[', $._expression, ']'),
 
-        block: $ => seq(
-            '{',
-            sep_by_trailing($._statement, STATEMENT_SEP),
-            '}'
-        ),
+
 
         if_else: $ => seq('if', $._expression, $.block, 'else', $.block),
 
@@ -126,17 +136,15 @@ module.exports = grammar({
 
         parameter_list: $ => seq('(', sep_by_trailing($.identifier, LIST_SEP), ')'),
 
-        tuple: $ => choice(
-            seq('(', ',', ')'),
-            seq('(', $._expression, ',', ')'),
-            seq('(', $._expression, repeat1(seq(',', $._expression)), optional(LIST_SEP), ')'),
-        ),
+        tuple: $ => seq('(', sep_by_trailing($._element, LIST_SEP), ')'),
 
-        _grouping: $ => seq('(', $._expression, ')'),
+        _grouping: $ => prec(PREC.grouping, seq('(', $._expression, ')')),
 
-        unit_literal: $ => seq('(', ')'),
+        unit_literal: $ => prec(PREC.unit, seq('(', ')')),
 
-        list: $ => seq('[', sep_by_trailing($._expression, LIST_SEP), ']'),
+        list: $ => seq('[', sep_by_trailing($._element, LIST_SEP), ']'),
+
+        _element: $ => choice($._expression, $.spread),
 
         loop_loop: $ => seq('loop', $.block),
 

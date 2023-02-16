@@ -106,23 +106,3 @@ false
 ---
 
 (source_file (bool_literal))
-
-=============
-unit-literal
-=============
-
-()
-
----
-
-(source_file (unit_literal))
-
-===================
-unit-literal-spaces
-===================
-
-(    )
-
----
-
-(source_file (unit_literal))
