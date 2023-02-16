@@ -37,3 +37,252 @@ if { true } { foo } else { bar }
         (block (bool_literal))
         (block (identifier))
         (block (identifier))))
+
+==========
+list-empty
+==========
+
+[]
+
+---
+
+(source_file (list))
+
+===================
+list-empty-trailing
+===================
+
+[,]
+
+---
+
+(source_file (list))
+
+====
+list
+===
+
+[ 1, 2, ]
+
+---
+
+(source_file
+    (list
+        (int_literal)
+        (int_literal)))
+
+===========
+list-spread
+===========
+
+[ 1, foo..., ]
+
+(source_file
+    (list
+        (int_literal)
+        (spread (identifier))))
+
+
+=====
+tuple
+=====
+
+(a, b)
+
+---
+
+(source_file
+    (tuple (identifier) (identifier)))
+
+===========
+tuple-empty
+===========
+
+(,)
+
+---
+
+(source_file
+    (tuple))
+
+============
+tuple-single
+============
+
+(a,)
+
+---
+
+(source_file
+    (tuple (identifier)))
+
+========================
+tuple-spread-trailing
+========================
+
+(a...,)
+
+---
+
+(source_file
+    (tuple (spread (identifier))))
+
+=========
+loop-loop
+=========
+
+loop { a }
+
+(source_file
+    (loop_loop
+        (block (identifier))))
+
+==========
+while-loop
+==========
+
+while loop { a } { b }
+
+(source_file
+    (loop_while
+        (loop_loop
+            (block (identifier)))
+        (block (identifier))))
+
+=========
+subscript
+=========
+
+x[0];
+
+---
+(source_file
+    (subscript
+        (identifier)
+        (int_literal)))
+
+=========
+subscript
+=========
+
+x[0][true];
+
+---
+(source_file
+    (subscript
+        (subscript
+            (identifier)
+            (int_literal))
+        (bool_literal)))
+
+
+===========
+early-exits
+===========
+
+return break 5;
+
+---
+
+(source_file
+    (early_exit
+        (early_exit (int_literal))))
+
+
+==========
+call-empty
+==========
+
+foo();
+
+---
+
+(source_file
+    (call
+        (identifier)))
+
+====
+call
+====
+
+foo(1, 2,);
+
+---
+
+(source_file
+    (call
+        (identifier)
+        (int_literal)
+        (int_literal)))
+
+
+==================
+call-associativity
+==================
+
+foo(1, 2)(true);
+
+---
+
+(source_file
+    (call
+        (call
+            (identifier)
+            (int_literal)
+            (int_literal))
+        (bool_literal)))
+
+============
+record-empty
+============
+
+{}
+
+---
+
+(source_file
+    (record))
+
+===============
+record-trailing
+===============
+
+{,}
+
+---
+
+(source_file
+    (record))
+
+==========
+record-pun
+==========
+
+{ foo }
+
+---
+
+(source_file
+    (record (record_pun (identifier))))
+
+===========
+record-pair
+===========
+
+{ foo: bar }
+
+---
+
+(source_file
+    (record (record_pair (identifier) (identifier))))
+
+===================
+record-pair-literal
+===================
+
+{ 7: bar }
+
+---
+
+(source_file
+    (record (record_pair (int_literal) (identifier))))
