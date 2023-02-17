@@ -1,7 +1,7 @@
 {
-  "name": "tree-sitter-Kurt",
+  "name": "tree-sitter-kurt",
   "version": "0.0.1",
-  "description": "Kurt grammar for tree-sitter",
+  "description": "kurt grammar for tree-sitter",
   "main": "bindings/node",
   "keywords": [
     "parsing",
