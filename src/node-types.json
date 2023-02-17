@@ -32,6 +32,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -124,6 +128,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -227,6 +235,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -314,6 +326,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -374,6 +390,101 @@
     "fields": {}
   },
   {
+    "type": "fn",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bin_literal",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "bool_literal",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "early_exit",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
+          "named": true
+        },
+        {
+          "type": "hex_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_else",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "loop_for",
+          "named": true
+        },
+        {
+          "type": "loop_loop",
+          "named": true
+        },
+        {
+          "type": "loop_while",
+          "named": true
+        },
+        {
+          "type": "parameter_list",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
+        },
+        {
+          "type": "unit_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_else",
     "named": true,
     "fields": {},
@@ -403,6 +514,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -490,6 +605,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -599,6 +718,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -687,6 +810,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -792,6 +919,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -862,6 +993,21 @@
     }
   },
   {
+    "type": "parameter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "record",
     "named": true,
     "fields": {},
@@ -918,6 +1064,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -1005,6 +1155,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -1118,6 +1272,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -1213,6 +1371,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -1297,6 +1459,10 @@
         },
         {
           "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "fn",
           "named": true
         },
         {
@@ -1402,6 +1568,10 @@
           "named": true
         },
         {
+          "type": "fn",
+          "named": true
+        },
+        {
           "type": "hex_literal",
           "named": true
         },
@@ -1495,6 +1665,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "=>",
     "named": false
   },
   {

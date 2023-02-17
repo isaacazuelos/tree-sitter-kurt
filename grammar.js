@@ -22,6 +22,10 @@ const PREC = {
     tuple: 0,
     grouping: 1,
     unit: 2,
+    fn: 3,
+
+    // suffix expressions, things like call, subscript
+    subscript: 5,
 
 
     // Create a preference for blocks over records.
@@ -44,6 +48,7 @@ module.exports = grammar({
 
     conflicts: $ => [
         [$.record_pun, $._expression_statement],
+        [$.parameter_list, $._element]
     ],
 
     rules: {
@@ -83,6 +88,10 @@ module.exports = grammar({
         _expression: $ => choice(
             $._grouping,
             $._literal,
+            $.block,
+            $.call,
+            $.early_exit,
+            $.fn,
             $.identifier,
             $.if_else,
             $.keyword,
@@ -90,18 +99,14 @@ module.exports = grammar({
             $.loop_for,
             $.loop_loop,
             $.loop_while,
+            $.record,
             $.subscript,
             $.tuple,
             $.unit_literal,
-            $.early_exit,
-            $.call,
 
-            $.record,
-            $.block,
-
-            // TODO: operators, fns, match
-
+            // TODO: operators, match
         ),
+
 
         record: $ => prec(PREC.record, seq('{', sep_by_trailing($._record_item, LIST_SEP), '}')),
         block: $ => prec(PREC.block, seq('{', sep_by_trailing($._statement, STATEMENT_SEP), '}')),
@@ -122,17 +127,21 @@ module.exports = grammar({
             $._literal,
         ),
 
-        call: $ => prec.left(seq($._expression, '(', sep_by_trailing($._expression, LIST_SEP), ')')),
+        call: $ => seq($._expression, '(', sep_by_trailing($._expression, LIST_SEP), ')'),
 
         early_exit: $ => prec.left(seq(choice('return', 'break', 'continue'), optional($._expression))),
 
-        subscript: $ => seq($._expression, '[', $._expression, ']'),
-
-
+        subscript: $ => prec(PREC.subscript, seq($._expression, '[', $._expression, ']')),
 
         if_else: $ => seq('if', $._expression, $.block, 'else', $.block),
 
         keyword: $ => token.immediate(':', $.identifier),
+
+        fn: $ => prec.right(PREC.fn, seq(
+            $.parameter_list,
+            "=>",
+            $._expression,
+        )),
 
         parameter_list: $ => seq('(', sep_by_trailing($.identifier, LIST_SEP), ')'),
 

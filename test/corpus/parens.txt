@@ -90,3 +90,79 @@ tuple-spread-no-trailing
 
 (source_file
     (tuple (spread (identifier))))
+
+
+==========
+fn-typical
+==========
+
+(a, b, c) => b;
+
+---
+
+(source_file
+    (fn 
+        (parameter_list (identifier) (identifier) (identifier))
+        (identifier)))
+
+=======
+fn-unit
+=======
+
+() => 1;
+
+---
+
+(source_file (fn (parameter_list) (int_literal)))
+
+=================
+fn-trailing-comma
+=================
+
+(,) => 1;
+
+---
+
+(source_file (fn (parameter_list) (int_literal)))
+
+========
+fn-assoc
+========
+
+(a) => (b) => a;
+
+---
+
+(source_file 
+    (fn (parameter_list (identifier)) 
+        (fn (parameter_list (identifier))
+            (identifier))))
+
+=======
+fn-prec
+=======
+
+(a) => a[0];
+
+---
+
+(source_file
+    (fn (parameter_list (identifier))
+        (subscript
+            (identifier)
+            (int_literal))))
+
+
+==============
+parens-nesting
+==============
+
+((() => (((()))))(()))
+
+---
+
+(source_file
+    (call
+        (fn (parameter_list)
+            (unit_literal))
+        (unit_literal)))
