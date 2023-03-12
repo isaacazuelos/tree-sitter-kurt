@@ -1,0 +1,63 @@
+===========
+empty-block
+===========
+
+{;}
+
+---
+
+(source_file
+    (block))
+
+===============
+singleton_block
+===============
+
+{ foo; }
+
+--- 
+
+(source_file (block (ID)))
+
+============
+simple-block
+============
+
+{ 1; 2; 3; }
+
+---
+
+(source_file
+    (block
+        (INT)
+        (INT)
+        (INT)))
+
+=================
+no-trailing-block
+=================
+
+{ 1; 2; 3 }
+
+---
+
+(source_file
+    (block
+        (INT)
+        (INT)
+        (INT)))
+
+============
+block-nested
+============
+
+{ 1; {;}; 2; { 3 }; }
+
+---
+
+(source_file
+    (block
+        (INT)
+        (block)
+        (INT)
+        (block (INT))))

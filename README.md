@@ -1,2 +1,3 @@
-# tree-sitter-kurt
-A Tree Sitter grammar for Kurt
+# Tree-Sitter Kurt
+
+A Tree Sitter grammar for Kurt.

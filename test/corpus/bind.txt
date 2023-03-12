@@ -1,0 +1,73 @@
+========
+var-bind
+========
+
+var x = 0;
+
+---
+
+(source_file (var_bind (ID) (INT)))
+
+========
+let-bind
+========
+
+let x = 0;
+
+---
+
+(source_file (let_bind (ID) (INT)))
+
+===========
+let-bind-op
+===========
+
+let (<$>) = map;
+
+---
+
+(source_file (let_bind (op_ref) (ID)))
+
+
+===========
+let-bind-fn
+===========
+
+let f(x, y) => true;
+
+---
+
+(source_file (let_fn 
+    (ID)
+    (parameter_list (ID) (ID))
+    (TRUE)))
+
+
+
+==============
+let-bind-fn-op
+==============
+
+let (-)(x, y) => true;
+
+---
+
+(source_file (let_fn 
+    (op_ref)
+    (parameter_list (ID) (ID))
+    (TRUE)))
+
+================
+let-bind-pattern
+================
+
+let [_, ...rest] = list;
+
+---
+
+(source_file
+    (let_pattern
+        (pattern (pat_list
+            (ID)
+            (pat_rest (ID))))
+        (ID)))

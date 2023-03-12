@@ -1,0 +1,132 @@
+==========
+empty-list
+==========
+
+[]
+
+---
+
+(source_file (list))
+
+===================
+empty-list-trailing
+===================
+
+[,]
+
+---
+
+(source_file (list))
+
+==============
+singleton-list
+==============
+
+[1]
+
+---
+
+(source_file (list (INT)))
+
+=======================
+singleton-list-trailing
+=======================
+
+[1,]
+
+---
+
+(source_file (list (INT)))
+
+====
+list
+====
+
+[1, 2, 3]
+
+---
+
+(source_file (list (INT) (INT) (INT)))
+
+===========
+list-spread
+===========
+
+[x...]
+
+---
+
+(source_file (list (spread (ID))))
+
+================
+empty-tuple-unit
+================
+
+()
+
+---
+
+(source_file (unit))
+
+===========
+unit-spaces
+===========
+
+( 
+    // there's a comment in here even!
+)
+
+---
+
+(source_file (unit))
+
+====================
+empty-tuple-trailing
+====================
+
+(,)
+
+---
+
+(source_file (tuple))
+
+========
+grouping
+========
+
+(x)
+
+---
+
+(source_file (grouping (ID)))
+
+===============
+singleton-tuple
+===============
+
+(x,)
+
+---
+
+(source_file (tuple (ID)))
+
+============
+tuple-simple
+============
+
+(1, 2, 3)
+
+(source_file (tuple (INT) (INT) (INT)))
+
+======================
+singleton-tuple-spread
+======================
+
+// A little surprising maybe, but this is unambiguously not parentheses 
+// used for grouping, it's a tuple!
+
+(x...)
+
+---
+
+(source_file (tuple (spread (ID))))

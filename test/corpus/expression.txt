@@ -2,74 +2,47 @@
 if-else
 =======
 
-if true { foo } else { bar }
+if true { 1 } else { 2 }
 
 ---
 
 (source_file
-    (if_else
-        (bool_literal)
-        (block (identifier))
-        (block (identifier))))
+    (conditional
+        (TRUE)
+        (block (INT))
+        (block (INT))))
+
+====
+elif
+====
+
+if true { 1 } else if false { 2 } else { 3 }
+
+---
+
+(source_file
+    (conditional
+        (TRUE)
+        (block (INT))
+        (elif (FALSE) (block (INT)))
+        (block (INT))))
+
 
 =======================
 if-else-block-condition
 =======================
 
 // weird, but valid!
-if { true } { foo } else { bar }
+if { true } { 1 } else { 0 }
 
 ---
 
 (source_file
-    (if_else
-        (block (bool_literal))
-        (block (identifier))
-        (block (identifier))))
+    (conditional
+        (block (TRUE))
+        (block (INT))
+        (block (INT))))
 
-==========
-list-empty
-==========
-
-[]
-
----
-
-(source_file (list))
-
-===================
-list-empty-trailing
-===================
-
-[,]
-
----
-
-(source_file (list))
-
-====
-list
-===
-
-[ 1, 2, ]
-
----
-
-(source_file
-    (list
-        (int_literal)
-        (int_literal)))
-
-===========
-list-spread
-===========
-
-[ 1, foo..., ]
-
-(source_file
-    (list
-        (int_literal)
-        (spread (identifier))))
 
 =========
 loop-loop
@@ -77,9 +50,11 @@ loop-loop
 
 loop { a }
 
+---
+
 (source_file
-    (loop_loop
-        (block (identifier))))
+    (loop
+        (block (ID))))
 
 ==========
 while-loop
@@ -87,91 +62,30 @@ while-loop
 
 while loop { a } { b }
 
-(source_file
-    (loop_while
-        (loop_loop
-            (block (identifier)))
-        (block (identifier))))
-
-=========
-subscript
-=========
-
-x[0];
-
----
-(source_file
-    (subscript
-        (identifier)
-        (int_literal)))
-
-=========
-subscript
-=========
-
-x[0][true];
-
----
-(source_file
-    (subscript
-        (subscript
-            (identifier)
-            (int_literal))
-        (bool_literal)))
-
-
-===========
-early-exits
-===========
-
-return break 5;
-
 ---
 
 (source_file
-    (early_exit
-        (early_exit (int_literal))))
+    (while
+        (loop
+            (block (ID)))
+        (block (ID))))
 
+=====================
+return-break-continue
+=====================
 
-==========
-call-empty
-==========
-
-foo();
-
----
-
-(source_file
-    (call
-        (identifier)))
-
-====
-call
-====
-
-foo(1, 2,);
+return break continue 5;
 
 ---
 
-(source_file
-    (call
-        (identifier)
-        (int_literal)
-        (int_literal)))
+(source_file (return (break (continue (INT)))))
 
+============================
+return-break-continue-no-arg
+============================
 
-==================
-call-associativity
-==================
-
-foo(1, 2)(true);
+return;
 
 ---
 
-(source_file
-    (call
-        (call
-            (identifier)
-            (int_literal)
-            (int_literal))
-        (bool_literal)))
+(source_file (return))

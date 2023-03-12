@@ -6,8 +6,7 @@ zero
 
 ---
 
-(source_file
-  (int_literal))
+(source_file (INT))
 
 ======
 number
@@ -17,8 +16,7 @@ number
 
 ---
 
-(source_file
-  (int_literal))
+(source_file (INT))
 
 =======================
 number-with-underscores
@@ -28,8 +26,7 @@ number-with-underscores
 
 ---
 
-(source_file
-  (int_literal))
+(source_file (INT))
 
 ===============================
 number-with-leading-underscores
@@ -39,8 +36,7 @@ _12_313_441
 
 ---
 
-(source_file
-  (identifier))
+(source_file (ID))
 
 ==========
 hex-number
@@ -50,8 +46,7 @@ hex-number
 
 ---
 
-(source_file
-  (hex_literal))
+(source_file (HEX))
 
 ==========
 bin-number
@@ -61,8 +56,7 @@ bin-number
 
 ---
 
-(source_file
-  (bin_literal))
+(source_file (BIN))
 
 ==============
 keyword-simple
@@ -72,8 +66,7 @@ keyword-simple
 
 ---
 
-(source_file
-  (keyword))
+(source_file (KEYWORD))
 
 ===========================
 keyword-reserved-identifier
@@ -83,8 +76,7 @@ keyword-reserved-identifier
 
 ---
 
-(source_file
-  (keyword))
+(source_file (KEYWORD))
 
 
 ============
@@ -95,7 +87,7 @@ true
 
 ---
 
-(source_file (bool_literal))
+(source_file (TRUE))
 
 =============
 false-literal
@@ -105,4 +97,4 @@ false
 
 ---
 
-(source_file (bool_literal))
+(source_file (FALSE))

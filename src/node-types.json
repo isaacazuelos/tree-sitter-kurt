@@ -1,90 +1,176 @@
 [
   {
-    "type": "binding",
+    "type": "_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "ID",
+        "named": true
+      },
+      {
+        "type": "_literal",
+        "named": true
+      },
+      {
+        "type": "block",
+        "named": true
+      },
+      {
+        "type": "break",
+        "named": true
+      },
+      {
+        "type": "call",
+        "named": true
+      },
+      {
+        "type": "conditional",
+        "named": true
+      },
+      {
+        "type": "continue",
+        "named": true
+      },
+      {
+        "type": "fn",
+        "named": true
+      },
+      {
+        "type": "grouping",
+        "named": true
+      },
+      {
+        "type": "infix",
+        "named": true
+      },
+      {
+        "type": "list",
+        "named": true
+      },
+      {
+        "type": "loop",
+        "named": true
+      },
+      {
+        "type": "match",
+        "named": true
+      },
+      {
+        "type": "member",
+        "named": true
+      },
+      {
+        "type": "op_ref",
+        "named": true
+      },
+      {
+        "type": "postfix",
+        "named": true
+      },
+      {
+        "type": "prefix",
+        "named": true
+      },
+      {
+        "type": "record",
+        "named": true
+      },
+      {
+        "type": "return",
+        "named": true
+      },
+      {
+        "type": "subscript",
+        "named": true
+      },
+      {
+        "type": "tuple",
+        "named": true
+      },
+      {
+        "type": "while",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_literal",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "BIN",
+        "named": true
+      },
+      {
+        "type": "FALSE",
+        "named": true
+      },
+      {
+        "type": "FLOAT",
+        "named": true
+      },
+      {
+        "type": "HEX",
+        "named": true
+      },
+      {
+        "type": "INT",
+        "named": true
+      },
+      {
+        "type": "KEYWORD",
+        "named": true
+      },
+      {
+        "type": "TRUE",
+        "named": true
+      },
+      {
+        "type": "unit",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_expression",
+        "named": true
+      },
+      {
+        "type": "import",
+        "named": true
+      },
+      {
+        "type": "let_bind",
+        "named": true
+      },
+      {
+        "type": "let_fn",
+        "named": true
+      },
+      {
+        "type": "let_pattern",
+        "named": true
+      },
+      {
+        "type": "var_bind",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "bare_parameter",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "ID",
           "named": true
         }
       ]
@@ -96,111 +182,29 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "binding",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "empty_statement",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "if_no_else",
-          "named": true
-        },
-        {
-          "type": "import",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_statement",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "bool_literal",
+    "type": "break",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "call",
@@ -211,90 +215,56 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
+          "type": "_expression",
           "named": true
         },
         {
-          "type": "block",
+          "type": "keyword_argument",
           "named": true
         },
         {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "spread",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "early_exit",
+    "type": "computed_key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "conditional",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "elif",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "continue",
     "named": true,
     "fields": {},
     "children": {
@@ -302,92 +272,26 @@
       "required": false,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_expression",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "empty_statement",
+    "type": "elif",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "fn",
@@ -398,269 +302,30 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
+          "type": "_expression",
           "named": true
         },
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
+          "type": "bare_parameter",
           "named": true
         },
         {
           "type": "parameter_list",
           "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "if_else",
+    "type": "grouping",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "if_no_else",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -675,11 +340,149 @@
       "required": true,
       "types": [
         {
-          "type": "module_path",
+          "type": "import_list",
           "named": true
         },
         {
-          "type": "symbol_list",
+          "type": "module_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "op_ref",
+          "named": true
+        },
+        {
+          "type": "rename",
+          "named": true
+        },
+        {
+          "type": "rename_op",
+          "named": true
+        },
+        {
+          "type": "star",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "infix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "infix_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "infix_op",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keyword_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_bind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_fn",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "parameter_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "let_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "pattern",
           "named": true
         }
       ]
@@ -694,185 +497,18 @@
       "required": false,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
+          "type": "_expression",
           "named": true
         },
         {
           "type": "spread",
           "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "loop_for",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "loop_loop",
+    "type": "loop",
     "named": true,
     "fields": {},
     "children": {
@@ -887,7 +523,7 @@
     }
   },
   {
-    "type": "loop_while",
+    "type": "match",
     "named": true,
     "fields": {},
     "children": {
@@ -895,83 +531,45 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
+          "type": "_expression",
           "named": true
         },
         {
-          "type": "block",
+          "type": "match_arm",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "match_arm",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         },
         {
-          "type": "bool_literal",
+          "type": "pattern",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "member",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -986,7 +584,31 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "ID",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "op_ref",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "computed_key",
           "named": true
         }
       ]
@@ -1001,7 +623,445 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "keyword_parameter",
+          "named": true
+        },
+        {
+          "type": "rest",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_grouping",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_or",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_rec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "pat_pair",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_rename",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_rest",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pat_tuple",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
+          "named": true
+        },
+        {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "pat_grouping",
+          "named": true
+        },
+        {
+          "type": "pat_list",
+          "named": true
+        },
+        {
+          "type": "pat_or",
+          "named": true
+        },
+        {
+          "type": "pat_rec",
+          "named": true
+        },
+        {
+          "type": "pat_rename",
+          "named": true
+        },
+        {
+          "type": "pat_rest",
+          "named": true
+        },
+        {
+          "type": "pat_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "postfix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "postfix_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "postfix_op",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "prefix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "prefix_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "prefix_op",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "pun",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ID",
           "named": true
         }
       ]
@@ -1016,15 +1076,11 @@
       "required": false,
       "types": [
         {
-          "type": "record_computed_key",
+          "type": "pair",
           "named": true
         },
         {
-          "type": "record_pair",
-          "named": true
-        },
-        {
-          "type": "record_pun",
+          "type": "pun",
           "named": true
         },
         {
@@ -1035,7 +1091,7 @@
     }
   },
   {
-    "type": "record_computed_key",
+    "type": "rename",
     "named": true,
     "fields": {},
     "children": {
@@ -1043,90 +1099,14 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "ID",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "record_pair",
+    "type": "rename_op",
     "named": true,
     "fields": {},
     "children": {
@@ -1134,90 +1114,14 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "op_ref",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "record_pun",
+    "type": "rest",
     "named": true,
     "fields": {},
     "children": {
@@ -1225,7 +1129,22 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -1240,99 +1159,7 @@
       "required": false,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "binding",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "empty_statement",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "if_no_else",
-          "named": true
-        },
-        {
-          "type": "import",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_statement",
           "named": true
         }
       ]
@@ -1347,87 +1174,16 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
+          "type": "_expression",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "star",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "subscript",
@@ -1438,98 +1194,7 @@
       "required": true,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "symbol_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -1544,227 +1209,81 @@
       "required": false,
       "types": [
         {
-          "type": "bin_literal",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "bool_literal",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "early_exit",
-          "named": true
-        },
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "fn",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "if_else",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
-          "type": "loop_for",
-          "named": true
-        },
-        {
-          "type": "loop_loop",
-          "named": true
-        },
-        {
-          "type": "loop_while",
-          "named": true
-        },
-        {
-          "type": "record",
+          "type": "_expression",
           "named": true
         },
         {
           "type": "spread",
-          "named": true
-        },
-        {
-          "type": "subscript",
-          "named": true
-        },
-        {
-          "type": "tuple",
-          "named": true
-        },
-        {
-          "type": "unit_literal",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "unit_literal",
+    "type": "unit",
     "named": true,
     "fields": {}
   },
   {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
-    "named": false
-  },
-  {
-    "type": ",",
-    "named": false
-  },
-  {
-    "type": ".",
-    "named": false
-  },
-  {
-    "type": "...",
-    "named": false
-  },
-  {
-    "type": ":",
-    "named": false
-  },
-  {
-    "type": ";",
-    "named": false
-  },
-  {
-    "type": "=",
-    "named": false
-  },
-  {
-    "type": "=>",
-    "named": false
-  },
-  {
-    "type": "[",
-    "named": false
-  },
-  {
-    "type": "]",
-    "named": false
-  },
-  {
-    "type": "as",
-    "named": false
-  },
-  {
-    "type": "bin_literal",
-    "named": true
-  },
-  {
-    "type": "break",
-    "named": false
-  },
-  {
-    "type": "continue",
-    "named": false
-  },
-  {
-    "type": "else",
-    "named": false
-  },
-  {
-    "type": "false",
-    "named": false
-  },
-  {
-    "type": "float_literal",
-    "named": true
-  },
-  {
-    "type": "for",
-    "named": false
-  },
-  {
-    "type": "hex_literal",
-    "named": true
-  },
-  {
-    "type": "identifier",
-    "named": true
-  },
-  {
-    "type": "if",
-    "named": false
-  },
-  {
-    "type": "import",
-    "named": false
-  },
-  {
-    "type": "in",
-    "named": false
-  },
-  {
-    "type": "int_literal",
-    "named": true
-  },
-  {
-    "type": "keyword",
-    "named": true
-  },
-  {
-    "type": "let",
-    "named": false
-  },
-  {
-    "type": "loop",
-    "named": false
-  },
-  {
-    "type": "return",
-    "named": false
-  },
-  {
-    "type": "true",
-    "named": false
+    "type": "var_bind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "while",
-    "named": false
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "{",
-    "named": false
+    "type": "BIN",
+    "named": true
   },
   {
-    "type": "}",
-    "named": false
+    "type": "FALSE",
+    "named": true
+  },
+  {
+    "type": "FLOAT",
+    "named": true
+  },
+  {
+    "type": "HEX",
+    "named": true
+  },
+  {
+    "type": "ID",
+    "named": true
+  },
+  {
+    "type": "INT",
+    "named": true
+  },
+  {
+    "type": "KEYWORD",
+    "named": true
+  },
+  {
+    "type": "TRUE",
+    "named": true
   }
 ]

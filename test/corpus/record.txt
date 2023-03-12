@@ -1,0 +1,69 @@
+============
+record-empty
+============
+
+{}
+
+---
+
+(source_file (record))
+
+===============
+record-trailing
+===============
+
+{,}
+
+---
+
+(source_file (record))
+
+==========
+record-pun
+==========
+
+{ foo }
+
+---
+
+(source_file (record (pun (ID))))
+
+================
+record-pun-comma
+================
+
+{ foo, }
+
+---
+
+(source_file (record (pun (ID))))
+
+===========
+record-pair
+===========
+
+{ foo: bar }
+
+---
+
+(source_file (record (pair (ID) (ID))))
+
+===================
+record-pair-literal
+===================
+
+{ 7: bar }
+
+---
+
+(source_file (record (pair (INT) (ID))))
+
+=============
+record-spread
+=============
+
+{ foo... };
+
+---
+
+(source_file (record (spread (ID))))

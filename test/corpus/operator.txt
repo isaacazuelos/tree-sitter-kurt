@@ -1,0 +1,213 @@
+===========
+infix-basic
+===========
+
+a * a
+
+---
+
+(source_file (infix (ID) (infix_op) (ID)))
+
+===================
+infix-associativity
+===================
+
+a * a * a
+
+---
+
+(source_file
+    (infix 
+        (infix (ID) (infix_op) (ID))
+        (infix_op)
+        (ID)))
+
+
+===============
+infix-no-spaces
+===============
+
+
+a+a
+
+---
+
+(source_file (infix (ID) (infix_op) (ID)))
+
+
+============
+prefix-basic
+============
+
+*a
+
+---
+
+(source_file (prefix (prefix_op) (ID)))
+
+====================
+prefix-associativity
+====================
+
+* *a
+
+---
+
+(source_file (prefix (prefix_op) (prefix (prefix_op) (ID))))
+
+==================
+mixed-infix-prefix
+==================
+
+!a + !b
+
+---
+
+(source_file (infix 
+    (prefix (prefix_op) (ID)) 
+    (infix_op) 
+    (prefix (prefix_op) (ID))))
+
+===========================
+mixed-infix-prefix-no-space
+===========================
+
+!a+b
+
+---
+
+(source_file
+    (infix
+        (prefix (prefix_op) (ID))
+        (infix_op)
+        (ID)))
+
+========================
+mixed-multi-prefix-infix
+========================
+
+~ !a + ~ !b
+
+---
+
+(source_file (infix
+    (prefix (prefix_op) (prefix (prefix_op) (ID)))
+    (infix_op)
+    (prefix (prefix_op) (prefix (prefix_op) (ID)))))
+
+
+==============
+postfix-simple
+==============
+
+a!
+
+---
+
+(source_file (postfix (ID) (postfix_op)))
+
+====================
+mixed-prefix-postfix
+====================
+
+// I'll defer to Swift here.
+//
+// > However, if you apply both a prefix and a postfix operator to the same
+// > operand, the postfix operator is applied first. 
+//
+// https://docs.swift.org/swift-book/documentation/the-swift-programming-language/advancedoperators/
+
+*a?
+
+---
+
+(source_file (prefix (prefix_op) (postfix (ID) (postfix_op))))
+
+===================
+mixed-postfix-infix
+===================
+
+a! + b?
+
+---
+
+(source_file (infix 
+    (postfix (ID) (postfix_op))
+    (infix_op)
+    (postfix (ID) (postfix_op))))
+
+==========================
+mixed-prefix-postfix-infix
+==========================
+
+-a! + !b?
+
+---
+
+(source_file (infix
+    (prefix (prefix_op) (postfix (ID) (postfix_op)))
+    (infix_op)
+    (prefix (prefix_op) (postfix (ID) (postfix_op)))))
+
+
+=====
+mixed
+=====
+
+a * *a? * a
+
+---
+
+(source_file
+    (infix
+        (infix
+            (ID)
+            (infix_op)
+            (prefix (prefix_op) (postfix (ID) (postfix_op))))
+        (infix_op)
+        (ID)))
+
+==================
+operator-reference
+==================
+
+(+);
+
+---
+
+(source_file (op_ref))
+
+===========================
+operator-reference-grouping
+===========================
+
+((+));
+
+---
+
+(source_file (grouping (op_ref)))
+
+====================================
+operator-reference-confusion
+====================================
+
+// This is an operator reference to `?` called with `!` as an operator
+// reference as the argument, with a postfix `?`. I hope nobody writes
+// code like this for real!
+
+(?)((!))?;
+
+---
+
+(source_file (postfix (call (op_ref) (op_ref)) (postfix_op)))
+
+=====================
+operator-infix-and-or
+=====================
+
+a and b;
+
+---
+
+(source_file
+    (infix (ID) (infix_op) (ID)))

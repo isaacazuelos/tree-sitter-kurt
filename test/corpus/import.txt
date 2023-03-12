@@ -1,0 +1,93 @@
+===========
+import-name
+===========
+
+import Thing;
+
+---
+
+(source_file (import (module_path (ID))))
+
+===========
+import-path
+===========
+
+import Thing.Inner;
+
+---
+
+(source_file (import (module_path (ID) (ID))))
+
+===============
+import-no-names
+===============
+
+import Thing {};
+
+---
+
+(source_file (import (module_path (ID)) (import_list)))
+
+
+========================
+import-no-names-trailing
+========================
+
+import Thing {,};
+
+---
+
+(source_file (import (module_path (ID)) (import_list)))
+
+===========
+import-star
+===========
+
+import Thing { * };
+
+---
+
+(source_file (import (module_path (ID)) (import_list (star))))
+
+============
+import-names
+============
+
+import Thing { x, y, z, };
+
+---
+
+(source_file (import (module_path (ID)) (import_list (ID) (ID) (ID))))
+
+
+=============
+import-rename
+=============
+
+import Thing { x as y };
+
+---
+
+(source_file (import (module_path (ID)) (import_list (rename (ID) (ID)))))
+
+
+===============
+import-operator
+===============
+
+import Ops { (+) };
+
+---
+
+(source_file (import (module_path (ID)) (import_list (op_ref))))
+
+
+===============
+import-operator
+===============
+
+import Ops { (+) as (-) };
+
+---
+
+(source_file (import (module_path (ID)) (import_list (rename_op (op_ref) (op_ref)))))

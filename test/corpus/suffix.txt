@@ -1,0 +1,149 @@
+=========
+subscript
+=========
+
+a[0]
+
+---
+
+(source_file (subscript (ID) (INT)))
+
+===============
+subscript-infix
+===============
+
+1[false] + a[0]
+
+---
+
+(source_file 
+    (infix
+        (subscript (INT) (FALSE))
+        (infix_op)
+        (subscript (ID) (INT))))
+
+====
+call
+====
+
+f()
+
+---
+
+(source_file
+    (call (ID)))
+
+=============
+call-trailing
+=============
+
+f(,)
+
+---
+
+(source_file (call (ID)))
+
+========
+call-arg
+========
+
+f(x)
+
+---
+
+(source_file (call (ID) (ID)))
+
+========
+call-arg
+========
+
+f(1, 2)
+
+---
+
+(source_file (call (ID) (INT) (INT)))
+
+================
+call-keyword-arg
+================
+
+f(a: 0, 1)
+
+---
+
+(source_file (call (ID) (keyword_argument (ID) (INT)) (INT)))
+
+===========
+call-spread
+===========
+
+/// I'm not even sure this should be valid syntax generally.
+f(a: 0, 1, foo...)
+
+---
+
+(source_file (call (ID) (keyword_argument (ID) (INT)) (INT) (spread (ID))))
+
+
+==================
+call-associativity
+==================
+
+foo(1, 2)(true);
+
+---
+
+(source_file
+    (call
+        (call
+            (ID)
+            (INT)
+            (INT))
+        (TRUE)))
+
+=============
+member_lookup
+=============
+
+a.b
+
+---
+
+(source_file (member (ID) (ID)))
+
+=============
+member_chain
+=============
+
+a.b.c
+
+---
+
+(source_file (member (member (ID) (ID)) (ID)))
+
+============
+suffix_chain
+============
+
+a.b?[c].d(e)
+
+---
+
+(source_file
+    (call
+        (member
+            (subscript 
+                (postfix
+                    (member
+                        (ID)
+                        (ID)
+                    )
+                    (postfix_op)
+                )
+                (ID)
+            )
+            (ID)
+        )
+        (ID)
+    )
+)

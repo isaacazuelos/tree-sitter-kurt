@@ -14,8 +14,7 @@ single-empty-statement
 
 ---
 
-(source_file
-    (empty_statement))
+(source_file)
 
 ================
 empty-statements
@@ -25,9 +24,7 @@ empty-statements
 
 ---
 
-(source_file
-    (empty_statement)
-    (empty_statement))
+(source_file)
 
 ===================
 multiple-statements
@@ -39,10 +36,7 @@ baz;
 
 ---
 
-(source_file
-    (identifier)
-    (identifier)
-    (identifier))
+(source_file (ID) (ID) (ID))
 
 
 =====================
@@ -54,66 +48,18 @@ foo
 
 ---
 
-(source_file
-    (identifier)
-    (identifier))
+(source_file (ID) (ID))
 
-==========
-if-no-else
-==========
+========
+comments
+========
 
-if true { foo };
+// a comment!
+;;
+// more comments in empty statements
+;
+// trailing comments
 
----
+----
 
-(source_file
-    (if_no_else
-        (bool_literal)
-        (block (identifier))))
-
-=============
-import-simple
-=============
-
-import Foo;
-
----
-
-(source_file
-    (import
-        (module_path (identifier))))
-
-================
-import-with-path
-================
-
-import Foo.Bar.Baz;
-
----
-
-(source_file
-    (import
-        (module_path
-        (identifier)
-        (identifier)
-        (identifier))))
-
-
-=======================
-import-with-symbol-list
-=======================
-
-import Foo.Bar.Baz { a, b, c, };
-
----
-
-(source_file
-    (import
-        (module_path
-            (identifier)
-            (identifier)
-            (identifier))
-        (symbol_list
-            (identifier)
-            (identifier)
-            (identifier))))
+(source_file)

@@ -6,8 +6,7 @@ foo;
 
 ---
 
-(source_file
-  (identifier))
+(source_file (ID))
 
 ===================
 non-ascii-xid_start
@@ -17,8 +16,7 @@ non-ascii-xid_start
 
 ---
 
-(source_file
-  (identifier))
+(source_file (ID) )
 
 =========
 non-ascii
@@ -28,5 +26,4 @@ non-ascii
 
 ---
 
-(source_file
-  (identifier))
+(source_file (ID))

@@ -1,0 +1,98 @@
+==========
+fn-typical
+==========
+
+(a, b, c) => b;
+
+---
+
+(source_file
+    (fn (parameter_list (ID) (ID) (ID))
+        (ID)))
+
+=======
+fn-unit
+=======
+
+() => 1;
+
+---
+
+(source_file (fn (parameter_list) (INT)))
+
+=================
+fn-trailing-comma
+=================
+
+(,) => 1;
+
+---
+
+(source_file (fn (parameter_list) (INT)))
+
+========
+fn-assoc
+========
+
+(a) => (b) => a;
+
+---
+
+(source_file 
+    (fn (parameter_list (ID)) 
+        (fn (parameter_list (ID))
+            (ID))))
+
+
+================
+fn-keyword-param
+================
+
+(a: 1) => a;
+
+---
+
+(source_file
+    (fn (parameter_list (keyword_parameter (ID) (INT)))
+        (ID)))
+
+=============
+fn-bare-param
+=============
+
+a => a;
+
+---
+
+(source_file
+    (fn (bare_parameter (ID))
+        (ID)))
+
+=============
+fn-rest-param
+=============
+
+(a, b, ...c) => a + c;
+
+---
+
+(source_file
+    (fn (parameter_list (ID) (ID) (rest (ID)))
+        (infix (ID) (infix_op) (ID))))
+
+====================
+fn-precedence-suffix
+====================
+
+(a) => a[0];
+
+---
+
+(source_file
+    (fn (parameter_list (ID))
+        (subscript
+            (ID)
+            (INT))))
+
+
+

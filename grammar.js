@@ -6,196 +6,459 @@
 //
 // [Swift] https://docs.swift.org/swift-book/ReferenceManual/Expressions.html
 
-const STATEMENT_SEP = ';';
-const MOD_PATH_SEP = '.';
-const LIST_SEP = ',';
-
-const sep_by_trailing1 = (rule, sep) => seq(rule, repeat(seq(sep, rule)), optional(sep));
-const sep_by_trailing = (rule, sep) => choice(sep, optional(sep_by_trailing1(rule, sep)));
-
-
 const PREC = {
-    // empty statements are to be avoided when possible.
-    empty_statement: -1,
+    suffix: 22,
+    prefix: 21,
+    infix: 20,
 
-    // Create a preference on how to parse `()`, `(a)` and `(a,)`.
-    tuple: 0,
-    grouping: 1,
-    unit: 2,
-    fn: 3,
+    unit: 13,
+    grouping: 12,
+    tuple: 11,
+    fn: 9,
 
-    // suffix expressions, things like call, subscript
-    subscript: 5,
+    rec_elt: 5,
+    early_exit: 4,
 
-
-    // Create a preference for blocks over records.
-    block: 0,
-    record: 1,
+    let_pattern: 2,
+    let_fn: 1,
+    let_bind: 0,
 };
+
+const LEX = {
+    // built in things like `=>` are higher precedence than user defined operators like `<=>`
+    symbol: 7,
+    op: 5,
+    reserved: 4,
+    identifier: 3,
+    keyword: 2,
+    whitespace: -1,
+};
+
+const sep1 = (rule, sep) => seq(rule, repeat(seq(sep, rule)));
 
 module.exports = grammar({
     name: 'kurt',
 
-    extras: $ => [
-        /\s/,
-        $._comment,
-    ],
-
-    inline: $ => [
-        $._expression,
-        $._statement,
-    ],
+    extras: $ => [$._WHITESPACE, $._COMMENT],
 
     conflicts: $ => [
-        [$.record_pun, $._expression_statement],
-        [$.parameter_list, $._element]
+        [$._parameter, $._primary_expression],
+        [$.let_bind, $._pattern],
+    ],
+
+    word: $ => $.ID,
+
+    supertypes: $ => [
+        $._statement,
+        $._expression,
+        $._literal,
     ],
 
     rules: {
         source_file: $ => optional($._statement_list),
 
-        _statement_list: $ => sep_by_trailing1($._statement, STATEMENT_SEP),
+        _statement_list: $ => seq($._statement, repeat(seq($._SEMICOLON, $._statement)), optional($._SEMICOLON)),
 
         _statement: $ => choice(
-            $.empty_statement,
-            $.binding,
-            $.if_no_else,
+            $._expression,
+            $._empty_statement,
+            $._binding,
             $.import,
-            $._expression_statement,
         ),
 
-        empty_statement: $ => prec(PREC.empty_statement, STATEMENT_SEP),
-
-        binding: $ => seq('let', $.identifier, '=', $._expression),
-
-        if_no_else: $ => seq('if', $._expression, $.block),
-
-        import: $ => seq('import', $.module_path, optional($.symbol_list)),
-
-        module_path: $ => seq($.identifier, repeat(seq(MOD_PATH_SEP, $.identifier))),
-
-        symbol_list: $ => seq('{', sep_by_trailing($._symbol, LIST_SEP), '}'),
-
-        _symbol: $ => seq($.identifier, optional(seq('as', $.identifier))),
-
-        _symbol_list_symbols: $ => choice(
-            seq($.identifier, optional(LIST_SEP)),
-            seq($.identifier, LIST_SEP, $._symbol_list_symbols),
+        import: $ => seq(
+            $._IMPORT,
+            $.module_path,
+            optional($.import_list),
         ),
 
-        _expression_statement: $ => $._expression,
+        module_path: $ => seq(
+            $.ID,
+            repeat(seq($._DOT, $.ID)),
+        ),
+
+        import_list: $ => seq(
+            $._OPEN_BRACE,
+            optional(sep1($._import_name, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACE
+        ),
+
+        _import_name: $ => choice(
+            $.ID,
+            $.op_ref,
+            $.star,
+            $.rename,
+            $.rename_op,
+        ),
+
+        op_ref: $ => seq($._OPEN_PAREN, choice($._OP, $._BANG, $._QUESTION), $._CLOSE_PAREN),
+        star: $ => $._STAR,
+        rename: $ => seq($.ID, $._AS, $.ID),
+        rename_op: $ => seq($.op_ref, $._AS, $.op_ref),
+
+        _binding: $ => choice(
+            $.var_bind,
+            $.let_bind,
+            $.let_pattern,
+            $.let_fn,
+        ),
+
+        var_bind: $ => seq(
+            $._VAR,
+            $.ID,
+            $._EQ,
+            $._expression,
+        ),
+
+        let_bind: $ => seq(
+            $._LET,
+            choice($.ID, $.op_ref),
+            $._EQ,
+            $._expression,
+        ),
+
+        let_pattern: $ => seq(
+            $._LET,
+            $.pattern,
+            $._EQ,
+            $._expression,
+        ),
+
+        let_fn: $ => seq(
+            $._LET,
+            choice($.ID, $.op_ref),
+            $.parameter_list,
+            $._DOUBLE_ARROW,
+            $._expression,
+        ),
+
+        _empty_statement: $ => $._SEMICOLON,
 
         _expression: $ => choice(
-            $._grouping,
+            $._unary,
+            $.infix,
+            $._primary_expression,
+        ),
+
+        _unary: $ => choice(
+            $.prefix,
+            $._suffix,
+        ),
+
+        _suffix: $ => prec.left(choice(
+            $.subscript,
+            $.call,
+            $.member,
+            $.postfix,
+        )),
+
+        prefix: $ => prec.left(PREC.prefix, seq($.prefix_op, $._expression)),
+
+        prefix_op: $ => prec.right(choice($._OP, $._BANG)),
+
+        infix: $ => prec.left(PREC.infix, seq($._expression, $.infix_op, $._expression)),
+
+        infix_op: $ => choice($._OP, $._AND, $._OR),
+
+        postfix: $ => prec.left(PREC.suffix, seq($._expression, $.postfix_op)),
+
+        postfix_op: $ => choice(
+            $._BANG,
+            $._QUESTION,
+        ),
+
+        subscript: $ => prec(PREC.suffix, seq(
+            $._expression,
+            $._OPEN_BRACKET,
+            $._expression,
+            $._CLOSE_BRACKET,
+        )),
+
+        member: $ => prec.left(PREC.suffix, seq(
+            $._expression,
+            $._DOT,
+            $.ID
+        )),
+
+        call: $ => prec(PREC.suffix, seq(
+            $._expression,
+            $._OPEN_PAREN,
+            optional(sep1($._argument, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_PAREN,
+        )),
+
+        _argument: $ => choice(
+            $._element, // gives us x... arguments.
+            $.keyword_argument,
+        ),
+
+        keyword_argument: $ => seq(
+            $.ID,
+            $._COLON,
+            $._expression
+        ),
+
+        _primary_expression: $ => choice(
             $._literal,
             $.block,
-            $.call,
-            $.early_exit,
+            $.break,
+            $.conditional,
+            $.continue,
             $.fn,
-            $.identifier,
-            $.if_else,
-            $.keyword,
+            $.grouping,
+            $.ID,
             $.list,
-            $.loop_for,
-            $.loop_loop,
-            $.loop_while,
+            $.loop,
+            $.match,
+            $.op_ref,
             $.record,
-            $.subscript,
+            $.return,
             $.tuple,
-            $.unit_literal,
-
-            // TODO: operators, match
+            $.while,
         ),
 
-
-        record: $ => prec(PREC.record, seq('{', sep_by_trailing($._record_item, LIST_SEP), '}')),
-        block: $ => prec(PREC.block, seq('{', sep_by_trailing($._statement, STATEMENT_SEP), '}')),
-
-        _record_item: $ => choice(
-            $.spread,
-            $.record_pair,
-            $.record_pun,
-            $.record_computed_key,
+        match: $ => seq(
+            $._MATCH,
+            $._expression,
+            $._match_arms,
         ),
 
-        record_pun: $ => $.identifier,
-        record_pair: $ => seq($._record_key, ':', $._expression),
-        record_computed_key: $ => seq('(', $._expression, ')', ':', $._expression),
+        _match_arms: $ => seq(
+            $._OPEN_BRACE,
+            optional(sep1($.match_arm, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACE,
+        ),
 
-        _record_key: $ => choice(
-            $.identifier,
+        match_arm: $ => seq(
+            $.pattern,
+            // this isn't actually ambiguous with the closure one, since
+            // patterns can't have `=>` -- we know the first one _must_ be the
+            // match arm's.
+            $._DOUBLE_ARROW,
+            $._expression,
+        ),
+
+        // this is the general entry point into any pattern, but when it
+        // recurses it will always use _pattern instead. 
+        pattern: $ => $._pattern,
+
+        _pattern: $ => choice(
+            $.ID,
             $._literal,
+            $.pat_rename,
+            $.pat_rest,
+            $.pat_list,
+            $.pat_tuple,
+            $.pat_grouping,
+            $.pat_rec,
+            $.pat_or
         ),
 
-        call: $ => seq($._expression, '(', sep_by_trailing($._expression, LIST_SEP), ')'),
+        pat_or: $ => prec.left(seq($._pattern, $._PIPE, $._pattern)),
+        pat_rename: $ => seq($.ID, $._AS, $.ID),
+        pat_rest: $ => prec(PREC.prefix, seq($._DOTS, optional($._pattern))),
+        pat_list: $ => seq(
+            $._OPEN_BRACKET,
+            optional(sep1($._pattern, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACKET,
+        ),
+        pat_grouping: $ => prec(PREC.grouping, seq($._OPEN_PAREN, $._pattern, $._CLOSE_PAREN)),
+        pat_tuple: $ => prec(PREC.tuple, seq(
+            $._OPEN_PAREN,
+            optional(sep1($._pattern, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_PAREN,
+        )),
+        pat_rec: $ => prec(PREC.tuple, seq(
+            $._OPEN_BRACE,
+            optional(sep1($._pat_rec_elt, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACE,
+        )),
 
-        early_exit: $ => prec.left(seq(choice('return', 'break', 'continue'), optional($._expression))),
+        _pat_rec_elt: $ => choice(
+            $.ID,
+            $.pat_rest,
+            $.pat_pair,
+        ),
 
-        subscript: $ => prec(PREC.subscript, seq($._expression, '[', $._expression, ']')),
+        pat_pair: $ => seq(
+            $.ID,
+            $._COLON,
+            $._pattern,
+        ),
 
-        if_else: $ => seq('if', $._expression, $.block, 'else', $.block),
+        return: $ => prec.left(PREC.early_exit, seq($._RETURN, optional($._expression))),
+        break: $ => prec.left(PREC.early_exit, seq($._BREAK, optional($._expression))),
+        continue: $ => prec.left(PREC.early_exit, seq($._CONTINUE, optional($._expression))),
 
-        keyword: $ => token.immediate(':', $.identifier),
+        loop: $ => seq($._LOOP, $.block),
+
+        while: $ => seq($._WHILE, $._expression, $.block),
+
+        conditional: $ => seq(
+            $._IF,
+            $._expression,
+            $.block,
+            optional(seq(repeat($.elif), $._ELSE, $.block))
+        ),
+
+        elif: $ => seq($._ELSE, $._IF, $._expression, $.block),
 
         fn: $ => prec.right(PREC.fn, seq(
-            $.parameter_list,
-            "=>",
+            choice($.bare_parameter, $.parameter_list),
+            $._DOUBLE_ARROW,
             $._expression,
         )),
 
-        parameter_list: $ => seq('(', sep_by_trailing($.identifier, LIST_SEP), ')'),
+        bare_parameter: $ => $.ID,
 
-        tuple: $ => seq('(', sep_by_trailing($._element, LIST_SEP), ')'),
+        parameter_list: $ => seq(
+            $._OPEN_PAREN,
+            optional(sep1($._parameter, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_PAREN,
+        ),
 
-        _grouping: $ => prec(PREC.grouping, seq('(', $._expression, ')')),
+        _parameter: $ => choice(
+            $.rest,
+            $.ID,
+            $.keyword_parameter,
+        ),
 
-        unit_literal: $ => prec(PREC.unit, seq('(', ')')),
+        keyword_parameter: $ => seq(
+            $.ID,
+            $._COLON,
+            $._expression,
+        ),
 
-        list: $ => seq('[', sep_by_trailing($._element, LIST_SEP), ']'),
+        list: $ => seq(
+            $._OPEN_BRACKET,
+            optional(sep1($._element, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACKET,
+        ),
+
+        tuple: $ => prec(PREC.tuple, seq(
+            $._OPEN_PAREN,
+            optional(sep1($._element, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_PAREN,
+        )),
 
         _element: $ => choice($._expression, $.spread),
 
-        loop_loop: $ => seq('loop', $.block),
+        spread: $ => prec(PREC.suffix, seq($._expression, $._DOTS)),
+        rest: $ => prec(PREC.prefix, seq($._DOTS, $._expression)),
 
-        loop_while: $ => seq('while', $._expression, $.block),
+        block: $ => seq($._OPEN_BRACE, $._statement_list, $._CLOSE_BRACE),
 
-        loop_for: $ => seq('for', $._expression, 'in', $._expression, $.block),
-
-        spread: $ => seq($._expression, '...'),
-
-        _literal: $ => choice(
-            $.bool_literal,
-            $.int_literal,
-            $.float_literal,
-            $.hex_literal,
-            $.bin_literal,
+        record: $ => seq(
+            $._OPEN_BRACE,
+            optional(sep1($._record_element, $._COMMA)),
+            optional($._COMMA),
+            $._CLOSE_BRACE
         ),
 
+        _record_element: $ => choice(
+            $.pun,
+            $.pair,
+            $.spread,
+        ),
+
+        pun: $ => prec(PREC.rec_elt, $.ID),
+        pair: $ => prec(PREC.rec_elt, seq($._key, $._COLON, $._expression)),
+        _key: $ => prec(PREC.rec_elt, choice($._literal, $.ID, $.computed_key)),
+
+        computed_key: $ => $.block, // for now?
+
+        grouping: $ => prec(PREC.grouping, seq($._OPEN_PAREN, $._expression, $._CLOSE_PAREN)),
+
+        _literal: $ => choice(
+            $.BIN,
+            $.FALSE,
+            $.FLOAT,
+            $.HEX,
+            $.INT,
+            $.KEYWORD,
+            $.TRUE,
+            $.unit,
+        ),
+
+        unit: $ => prec(PREC.unit, seq($._OPEN_PAREN, $._CLOSE_PAREN)),
+
         // Lexical Structure
-        //
-        // Really don't love going back to regex here. :(
+
+        _COMMENT: $ => token(seq('//', /.*/)),
+        _WHITESPACE: $ => token(prec(LEX.whitespace, /\s+/)),
+
+        _SEMICOLON: $ => token(prec(LEX.symbol, ';')),
+        _COLON: $ => token(prec(LEX.symbol, ':')),
+        _COMMA: $ => token(prec(LEX.symbol, ',')),
+        _DOT: $ => token(prec(LEX.symbol, '.')),
+        _ARROW: $ => token(prec(LEX.symbol, '->')),
+        _DOTS: $ => token(prec(LEX.symbol, '...')),
+        _DOUBLE_ARROW: $ => token(prec(LEX.symbol, '=>')),
+        _EQ: $ => token(prec(LEX.symbol, "=")),
+        _BANG: $ => token(prec(LEX.symbol, '!')),
+        _QUESTION: $ => token(prec(LEX.symbol, '?')),
+        _PIPE: $ => token(prec(LEX.symbol, '|')),
+        _STAR: $ => token(prec(LEX.symbol, '*')),
+
+        _OPEN_BRACE: $ => token(prec(LEX.symbol, '{')),
+        _CLOSE_BRACE: $ => token(prec(LEX.symbol, '}')),
+        _OPEN_BRACKET: $ => token(prec(LEX.symbol, '[')),
+        _CLOSE_BRACKET: $ => token(prec(LEX.symbol, ']')),
+        _OPEN_PAREN: $ => token(prec(LEX.symbol, '(')),
+        _CLOSE_PAREN: $ => token(prec(LEX.symbol, ')')),
+
+        _AND: $ => token(prec(LEX.reserved, 'and')),
+        _AS: $ => token(prec(LEX.reserved, 'as')),
+        _BREAK: $ => token(prec(LEX.reserved, 'break')),
+        _CONTINUE: $ => token(prec(LEX.reserved, 'continue')),
+        _ELSE: $ => token(prec(LEX.reserved, 'else')),
+        _FOR: $ => token(prec(LEX.reserved, 'for')),
+        _IF: $ => token(prec(LEX.reserved, 'if')),
+        _IMPORT: $ => token(prec(LEX.reserved, 'import')),
+        _IN: $ => token(prec(LEX.reserved, 'in')),
+        _LET: $ => token(prec(LEX.reserved, 'let')),
+        _LOOP: $ => token(prec(LEX.reserved, 'loop')),
+        _MATCH: $ => token(prec(LEX.reserved, 'match')),
+        _OR: $ => token(prec(LEX.reserved, 'or')),
+        _RETURN: $ => token(prec(LEX.reserved, 'return')),
+        _VAR: $ => token(prec(LEX.reserved, 'var')),
+        _WHILE: $ => token(prec(LEX.reserved, 'while')),
+
+        TRUE: $ => token(prec(LEX.reserved, 'true')),
+        FALSE: $ => token(prec(LEX.reserved, 'false')),
 
         // (XID_START | '_') (XID_CONTINUE | '_')*
-        identifier: $ => /[_\p{XID_Start}][_\p{XID_Continue}]*/,
-        keyword: $ => /:[_\p{XID_Start}][_\p{XID_Continue}]*/,
+        ID: $ => token(prec(LEX.identifier, /[_\p{XID_Start}][_\p{XID_Continue}]*/)),
 
-        // 'true' | 'false'
-        bool_literal: $ => choice('true', 'false'),
+        _OP: $ => token(prec(LEX.op, /[@$%<>\-\|\^\&\*\+\|\\\~]+/)),
 
-        // digit (digit | '_')*
-        int_literal: $ => /\d[_\d]*/,
-
-        // '0' ('x' | 'X') hex_digit (hex_digit | '_')*
-        hex_literal: $ => /0[xX][_0123456789abcdefABCDEF][_0123456789abcdefABCDEF]*/,
-
-        // '0' ('b' | 'B') bin_digit (bin_digit | '_')*
-        bin_literal: $ => /0[bB][01][_01]*/,
+        // keyword: $ => /:[_\p{XID_Start}][_\p{XID_Continue}]*/,
+        KEYWORD: $ => token(prec(LEX.keyword, /:[_\p{XID_Start}][_\p{XID_Continue}]*/)),
 
         // digit (digit | '_')*                  // initial digits    
         //  ('.' digit (digit | '_')*)?          // fractional part
         //  (('e' | 'E') digit (digit | '_')*)?  // exponent part
-        float_literal: $ => /\d[_\d]*(\.\d[_\d]*)?([eE]\d[_\d]*)/,
+        FLOAT: $ => token(/\d[_\d]*(\.\d[_\d]*)?([eE]\d[_\d]*)/),
 
-        _comment: $ => token(seq('//', /.*/)),
+        // digit (digit | '_')*
+        INT: $ => token(/\d[_\d]*/),
+
+        // '0' ('x' | 'X') hex_digit (hex_digit | '_')*
+        HEX: $ => token(/0[xX][0123456789abcdefABCDEF][_0123456789abcdefABCDEF]*/),
+
+        // '0' ('o' | 'O') oct_digit (oct_digit | '_')*
+        OCT: $ => token(/0[oO][01234567][_01234567]/),
+
+        // '0' ('b' | 'B') bin_digit (bin_digit | '_')*
+        BIN: $ => token(/0[bB][01][_01]*/),
     },
 });

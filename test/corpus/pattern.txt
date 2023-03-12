@@ -1,0 +1,252 @@
+===========
+match-empty
+===========
+
+match () {}
+
+---
+
+(source_file (match (unit)))
+
+===========
+match-arms
+===========
+
+match x {
+    true => 0,
+    false => 1,
+}
+
+---
+
+(source_file 
+    (match (ID) 
+        (match_arm (pattern (TRUE)) (INT)) 
+        (match_arm (pattern (FALSE)) (INT))))
+
+===============
+pattern-literal
+===============
+
+match () { 1 => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (INT)) (TRUE))))
+
+============
+pattern-bind
+============
+
+match () { x => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (ID)) (TRUE))))
+
+==============
+pattern-rename
+==============
+
+match () { x as y => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (pat_rename (ID) (ID))) (TRUE))))
+
+============
+pattern-rest
+============
+
+match () { [_, ...x] => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (pat_list (ID) (pat_rest (ID)))) (TRUE))))
+
+=================
+patter-rest-empty
+=================
+
+
+match () { [_, ...] => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (pat_list (ID) (pat_rest))) (TRUE))))
+
+============
+pattern-unit
+============
+
+match () { () => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm (pattern (unit)) (TRUE))))
+
+================
+pattern-grouping
+================
+
+match () { (y) => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm 
+        (pattern (pat_grouping (ID))) 
+        (TRUE))))
+
+=============
+pattern-tuple
+=============
+
+match () { (1, 2, 3) => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm 
+        (pattern (pat_tuple (INT) (INT) (INT))) 
+        (TRUE))))
+
+============================
+pattern-tuple-empty-trailing
+============================
+
+match () { (,) => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm 
+        (pattern (pat_tuple))
+        (TRUE))))
+
+=============================
+pattern-tuple-single-trailing
+=============================
+
+match () { (1,) => true }
+
+---
+
+(source_file (match (unit)
+    (match_arm 
+        (pattern (pat_tuple (INT)))
+        (TRUE))))
+
+
+============
+pattern-list
+============
+
+match x { [] => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_list))
+        (TRUE))))
+
+=================
+pattern-list-rest
+=================
+
+match x { [...rest] => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_list (pat_rest (ID)))) 
+        (TRUE))))
+
+
+====================
+pattern-record-empty
+====================
+
+match x { {} => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_rec))
+        (TRUE))))
+
+==================
+pattern-record-pun
+==================
+
+match x { { a } => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_rec (ID)))
+        (TRUE))))
+
+===================
+pattern-record-pair
+===================
+
+match x { { a: 1 } => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_rec (pat_pair (ID) (INT))))
+        (TRUE))))
+
+===================
+pattern-record-rest
+===================
+
+match x { { ...x } => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_rec (pat_rest (ID))))
+        (TRUE))))
+
+=========================
+pattern-record-rest-empty
+=========================
+
+match x { { ... } => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_rec (pat_rest)))
+        (TRUE))))
+
+=========================
+pattern-record-rest-empty
+=========================
+
+match x { [ ... ] | { ... } => true }
+
+---
+
+(source_file (match (ID)
+    (match_arm 
+        (pattern (pat_or
+            (pat_list (pat_rest))
+            (pat_rec  (pat_rest))))
+        (TRUE))))
