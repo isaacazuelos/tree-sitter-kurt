@@ -26,11 +26,14 @@ const PREC = {
 
 const LEX = {
     // built in things like `=>` are higher precedence than user defined operators like `<=>`
-    symbol: 7,
-    op: 5,
-    reserved: 4,
-    identifier: 3,
-    keyword: 2,
+    symbol: 8,
+    op: 7,
+    reserved: 6,
+    identifier: 5,
+    keyword: 4,
+    string: 3,
+    string_content: 2,
+    interpolation: 1,
     whitespace: -1,
 };
 
@@ -387,9 +390,82 @@ module.exports = grammar({
             $.KEYWORD,
             $.TRUE,
             $.unit,
+            $.string,
+            $.char,
         ),
 
         unit: $ => prec(PREC.unit, seq($._OPEN_PAREN, $._CLOSE_PAREN)),
+
+        // Strings and Characters
+
+        string: $ => prec(LEX.string, seq(
+            "\"",
+            repeat(choice(
+                $.interpolation,
+                $.string_body,
+                $.escape,
+            )),
+            token.immediate("\""),
+        )),
+
+        string_body: $ => prec(LEX.string_content, repeat1(choice(
+            $._string_single_quote,
+            $._string_not_escape,
+        ))),
+
+        interpolation: $ => prec(LEX.interpolation, seq(
+            "\\",
+            $._OPEN_PAREN,
+            $._expression,
+            $._CLOSE_PAREN,
+        )),
+
+        _string_single_quote: $ => token.immediate("\'"),
+
+        char: $ => prec(LEX.string, seq(
+            "'",
+            $._char_content,
+            token.immediate("'"),
+        )),
+
+        _char_content: $ => choice(
+            $._char_double_quote,
+            $._char_not_escape,
+            $.escape,
+        ),
+
+        _escape: $ => $.escape,
+
+        _char_double_quote: $ => token.immediate('"'),
+
+        _string_not_escape: $ => token.immediate(prec(LEX.string_content, /[^\"\n\\]+/)),
+        _char_not_escape: $ => token.immediate(prec(LEX.string_content, /[^\'\n\\]+/)),
+
+        escape: $ => prec(LEX.string_content, seq(
+            "\\",
+            choice(
+                $.c_style,
+                $.byte,
+                $.codepoint,
+                $.interpolation,
+            )
+        )),
+
+        c_style: $ => token.immediate(/[nrt\\0\'\"]/),
+
+        byte: $ => token.immediate(seq(
+            /[xX]/,
+            token.immediate("{"),
+            token.immediate(/[0123456789abcdefABCDEF][_0123456789abcdefABCDEF]*/),
+            token.immediate("}"),
+        )),
+
+        codepoint: $ => token.immediate(seq(
+            /[uU]/,
+            token.immediate("{"),
+            token.immediate(/[0123456789abcdefABCDEF][_0123456789abcdefABCDEF]*/),
+            token.immediate("}"),
+        )),
 
         // Lexical Structure
 

@@ -1,0 +1,117 @@
+===========
+char-simple
+===========
+
+'h';
+
+---
+
+(source_file (char))
+
+===========
+char-escape
+===========
+
+'\n';
+
+---
+
+(source_file (char (escape (c_style))))
+
+====================
+char-no-escape-quote
+====================
+
+'"';
+
+---
+
+(source_file (char))
+
+========================
+char-escape-single-quote
+========================
+
+'\'';
+
+---
+
+(source_file (char (escape (c_style))))
+
+================
+char-escape-byte
+================
+
+'\x{0}';
+
+---
+
+(source_file (char (escape (byte))))
+
+=====================
+char-escape-codepoint
+=====================
+
+'\u{40}';
+
+---
+
+(source_file (char (escape (codepoint))))
+
+============
+string-empty
+============
+
+"";
+
+---
+
+(source_file (string))
+
+=============
+string-simple
+=============
+
+"Hello, world!";
+
+---
+
+(source_file (string (string_body)))
+
+==============
+string-escapes
+==============
+
+"single quote:     '      ";
+"single quote:     \'     ";
+"single quote:     \"     ";
+"simple escape:    \n     ";
+"byte escape:      \x{0}  ";
+"codepoint escape: \u{40} ";
+
+---
+
+(source_file 
+    (string (string_body)) 
+    (string (string_body) (escape (c_style))   (string_body)) 
+    (string (string_body) (escape (c_style))   (string_body)) 
+    (string (string_body) (escape (c_style))   (string_body)) 
+    (string (string_body) (escape (byte))      (string_body)) 
+    (string (string_body) (escape (codepoint)) (string_body)))
+
+=============
+interpolation
+=============
+
+
+"\(1)";
+"1 + 2 = \(1 + 2)!";
+
+---
+
+(source_file 
+    (string (interpolation (INT)))
+    (string 
+        (string_body) 
+        (interpolation (infix (INT) (infix_op) (INT)))
+        (string_body)))

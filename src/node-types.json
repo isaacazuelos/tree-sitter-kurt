@@ -126,6 +126,14 @@
         "named": true
       },
       {
+        "type": "char",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      },
+      {
         "type": "unit",
         "named": true
       }
@@ -230,6 +238,21 @@
     }
   },
   {
+    "type": "char",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "escape",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "computed_key",
     "named": true,
     "fields": {},
@@ -288,6 +311,33 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "escape",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "byte",
+          "named": true
+        },
+        {
+          "type": "c_style",
+          "named": true
+        },
+        {
+          "type": "codepoint",
+          "named": true
+        },
+        {
+          "type": "interpolation",
           "named": true
         }
       ]
@@ -404,6 +454,21 @@
     "type": "infix_op",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "interpolation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "keyword_argument",
@@ -1186,6 +1251,34 @@
     "fields": {}
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape",
+          "named": true
+        },
+        {
+          "type": "interpolation",
+          "named": true
+        },
+        {
+          "type": "string_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_body",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "subscript",
     "named": true,
     "fields": {},
@@ -1255,6 +1348,14 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "BIN",
     "named": true
   },
@@ -1284,6 +1385,22 @@
   },
   {
     "type": "TRUE",
+    "named": true
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "byte",
+    "named": true
+  },
+  {
+    "type": "c_style",
+    "named": true
+  },
+  {
+    "type": "codepoint",
     "named": true
   }
 ]
